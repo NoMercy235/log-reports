@@ -1,0 +1,19 @@
+{
+  "name": "log-reports",
+  "version": "1.0.0",
+  "description": "A simple program that watches a folder for .log files and whenever there's a change in one of them, it sends an email with what has changed to a designated address.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "log",
+    "reports",
+    "email"
+  ],
+  "author": "Alexandru Florian Barascu <alex.florin2352@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "node-watch": "^0.5.5"
+  }
+}
