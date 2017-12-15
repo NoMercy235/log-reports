@@ -20,5 +20,17 @@
   },
   "devDependencies": {
     "nodemon": "^1.13.2"
-  }
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NoMercy235/log-reports.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NoMercy235/log-reports/issues"
+  },
+  "homepage": "https://github.com/NoMercy235/log-reports#readme"
 }
