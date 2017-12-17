@@ -4,7 +4,6 @@ require('rxjs/add/operator/map');
 require('rxjs/add/operator/debounceTime');
 
 const watch = require('node-watch');
-const emailSender = require('./lib/email-sender');
 const fileManager = require('./lib/file-manager');
 
 const envExists = fileManager.fileExists('./env.js', true);
@@ -14,6 +13,7 @@ if (!envExists) {
     process.exit(1);
 }
 
+const emailSender = require('./lib/email-sender');
 const env = require('./env');
 
 const subject = new Subject();
@@ -21,7 +21,7 @@ const filter = (name) => env.resultPath.indexOf(name) === -1;
 
 watch(env.watchPath, { recursive: true, filter: filter }, (event, name) => {
     if (event === 'update') {
-        fileManager.readFile(name).then(() => {
+        fileManager.readFile(name, env.resultPath).then(() => {
             subject.next();
         });
     }
