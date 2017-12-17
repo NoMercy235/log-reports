@@ -6,6 +6,14 @@ require('rxjs/add/operator/debounceTime');
 const watch = require('node-watch');
 const emailSender = require('./lib/email-sender');
 const fileManager = require('./lib/file-manager');
+
+const envExists = fileManager.fileExists('./env.js', true);
+
+if (!envExists) {
+    console.error('No environment file detected. Please create env.js in root folder.');
+    process.exit(1);
+}
+
 const env = require('./env');
 
 const subject = new Subject();
