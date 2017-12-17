@@ -20,8 +20,6 @@ watch(env.watchPath, { recursive: true, filter: filter }, (event, name) => {
 });
 
 subject.debounceTime(env.mail.debounceTime).subscribe(() => {
-    if (env.mail.sendEmail) {
-        emailSender();
-    }
+    emailSender();
     fileManager.emptyFile(env.resultPath);
 });

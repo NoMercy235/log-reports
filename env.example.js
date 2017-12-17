@@ -9,6 +9,10 @@ module.exports = {
         // Eventually, there will be custom fields here such as %%NAME%%, %%DATE%% or something like that for these following three fields.
         subject: 'Subject',
         body: 'Plain text',
-        html: 'Html text. Can be inline or path to file (in which case it has to be prepended by file://path/to/file',
-    }
+        html: 'Html text. Can be inline or path to file (in which case it has to be prepended by file://path/to/file', // file path not implemented yet.
+        sendEmail: 'true/false' // helper so you're not spammed with emails in development.
+    },
+    // Both paths have to already exist
+    watchPath: '/path/to/watch/location',
+    resultPath: '/path/to/result',
 };
