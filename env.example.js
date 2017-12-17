@@ -10,7 +10,8 @@ module.exports = {
         subject: 'Subject',
         body: 'Plain text',
         html: 'Html text. Can be inline or path to file (in which case it has to be prepended by file://path/to/file', // file path not implemented yet.
-        sendEmail: 'true/false' // helper so you're not spammed with emails in development.
+        sendEmail: 'true/false', // helper so you're not spammed with emails in development.
+        debounceTime: '1000ms', // time to wait for changes over the watched location
     },
     // Both paths have to already exist
     watchPath: '/path/to/watch/location',
