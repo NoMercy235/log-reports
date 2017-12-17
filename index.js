@@ -9,10 +9,9 @@ const fileManager = require('./lib/file-manager');
 const env = require('./env');
 
 const subject = new Subject();
+const filter = (name) => env.resultPath.indexOf(name) === -1;
 
-watch(env.watchPath, { recursive: true }, (event, name) => {
-    console.log(event);
-    console.log(name);
+watch(env.watchPath, { recursive: true, filter: filter }, (event, name) => {
     if (event === 'update') {
         fileManager.readFile(name).then(() => {
             subject.next();
@@ -20,10 +19,9 @@ watch(env.watchPath, { recursive: true }, (event, name) => {
     }
 });
 
-subject.debounceTime(1000).subscribe(() => {
-    console.log('Should check result');
+subject.debounceTime(env.mail.debounceTime).subscribe(() => {
     if (env.mail.sendEmail) {
-        emailSender({});
+        emailSender();
     }
-    fileManager.emptyFile('./result/result.txt');
+    fileManager.emptyFile(env.resultPath);
 });
