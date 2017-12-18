@@ -16,11 +16,15 @@ if (!envExists) {
 const emailSender = require('./lib/email-sender');
 const env = require('./env');
 
+fileManager.ensurePathExistence(env.watchPath, true);
+fileManager.ensurePathExistence(env.resultPath, false);
+
 const subject = new Subject();
 const filter = (name) => env.resultPath.indexOf(name) === -1;
 
 watch(env.watchPath, { recursive: true, filter: filter }, (event, name) => {
     if (event === 'update') {
+        console.log('detected update in: ' + name);
         fileManager.readFile(name, env.resultPath).then(() => {
             subject.next();
         });
