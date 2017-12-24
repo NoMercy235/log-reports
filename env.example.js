@@ -16,4 +16,5 @@ module.exports = {
     // Both paths have to already exist
     watchPath: '/path/to/watch/location',
     resultPath: '/path/to/result',
+    clearResult: 'boolean. If true, the resulted file will be cleared',
 };

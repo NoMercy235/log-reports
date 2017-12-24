@@ -33,5 +33,7 @@ watch(env.watchPath, { recursive: true, filter: filter }, (event, name) => {
 
 subject.debounceTime(env.mail.debounceTime).subscribe(() => {
     emailSender();
-    fileManager.emptyFile(env.resultPath);
+    if (env.clearResult) {
+        fileManager.emptyFile(env.resultPath);
+    }
 });

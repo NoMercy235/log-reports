@@ -46,6 +46,7 @@ Create a `env.js` file in the root directory with the following template:
     // Both paths have to already exist
     watchPath: '/path/to/watch/location',
     resultPath: '/path/to/result',
+    clearResult: 'boolean. If true, the resulted file will be cleared',
 }
 ```
 
