@@ -22,18 +22,22 @@ fileManager.ensurePathExistence(env.resultPath, false);
 const subject = new Subject();
 const filter = (name) => env.resultPath.indexOf(name) === -1;
 
+let changedFiles = [];
+
 watch(env.watchPath, { recursive: true, filter: filter }, (event, name) => {
     if (event === 'update') {
-        console.log('detected update in: ' + name);
-        fileManager.readFile(name, env.resultPath).then(() => {
-            subject.next();
-        });
+        subject.next();
+        if (!changedFiles.includes(name)) changedFiles.push(name);
     }
 });
 
 subject.debounceTime(env.mail.debounceTime).subscribe(() => {
-    emailSender();
-    if (env.clearResult) {
-        fileManager.emptyFile(env.resultPath);
-    }
+    let promises = [];
+    changedFiles.forEach(file => promises.push(fileManager.readFile(file, env.resultPath)));
+    Promise.all(promises).then(() => {
+        emailSender();
+        if (env.clearResult) {
+            fileManager.emptyFile(env.resultPath);
+        }
+    });
 });
