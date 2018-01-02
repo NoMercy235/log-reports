@@ -36,6 +36,7 @@ subject.debounceTime(env.mail.debounceTime).subscribe(() => {
     changedFiles.forEach(file => promises.push(fileManager.readFile(file, env.resultPath)));
     Promise.all(promises).then(() => {
         emailSender();
+	changedFiles = [];
         if (env.clearResult) {
             fileManager.emptyFile(env.resultPath);
         }
