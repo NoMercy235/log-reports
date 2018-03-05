@@ -41,6 +41,7 @@ subject.debounceTime(env.mail.debounceTime).subscribe(() => {
         });
         child.on('message', function(weatherApp) {
             emailSender({ weatherApp: weatherApp });
+            changedFiles = [];
             if (env.clearResult) {
                 fileManager.emptyFile(env.resultPath);
             }
