@@ -1,5 +1,5 @@
 const Subject = require('rxjs/Subject').Subject;
-const fork = require('child_process').fork;
+const weatherApp = require('@nomercy235/weather-app');
 require('rxjs/add/observable/of');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/debounceTime');
@@ -36,10 +36,8 @@ subject.debounceTime(env.mail.debounceTime).subscribe(() => {
     let promises = [];
     changedFiles.forEach(file => promises.push(fileManager.readFile(file, env.resultPath)));
     Promise.all(promises).then(() => {
-        const child = fork('../weather-app/index.js', ['-a', env.address], {
-            stdio: 'pipe'
-        });
-        child.on('message', function(weatherApp) {
+        const keys = env.weatherApp.keys;
+        weatherApp.getWeatherForAddress(env.weatherApp.address, keys).then(weatherApp => {
             emailSender({ weatherApp: weatherApp });
             changedFiles = [];
             if (env.clearResult) {
