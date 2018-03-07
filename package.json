@@ -15,7 +15,7 @@
     "author": "Alexandru Florian Barascu <alex.florin2352@gmail.com>",
     "license": "MIT",
     "dependencies": {
-        "@nomercy235/weather-app": "^1.0.1",
+        "@nomercy235/weather-app": "^1.1.0",
         "moment": "^2.21.0",
         "node-watch": "^0.5.5",
         "nodemailer": "^4.4.1",

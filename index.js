@@ -37,12 +37,12 @@ subject.debounceTime(env.mail.debounceTime).subscribe(() => {
     changedFiles.forEach(file => promises.push(fileManager.readFile(file, env.resultPath)));
     Promise.all(promises).then(() => {
         const keys = env.weatherApp.keys;
-        weatherApp.getWeatherForAddress(env.weatherApp.address, keys).then(weatherApp => {
+        weatherApp.getWeatherForAddress(env.weatherApp.address, keys, { type: 'forecast' }).then(weatherApp => {
             emailSender({ weatherApp: weatherApp });
             changedFiles = [];
             if (env.clearResult) {
                 fileManager.emptyFile(env.resultPath);
             }
-        });
+        }).catch(err => console.error(err));
     });
 });
