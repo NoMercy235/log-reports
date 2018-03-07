@@ -1,14 +1,13 @@
 const moment = require('moment');
 
 const dateTemplate = `
-<br />
 <h2>Day: %%DATE%%</h2>
 `;
 
 const hourTemplate = `
 <p>Time: %%TIME%%</p>
 <ul>
-    <li>Degrees: <b>%%TEMP%%</b></li>
+    <li>Degrees: <b>%%TEMP%%&#176;</b></li>
     <li>Wind: <b>%%WIND_SPEED%%</b> m/s</li>
     <li>Humidity: <b>%%HUMIDITY%%%</b></li>
     <li>Sky: <b>%%SKY%%</b></li>
@@ -23,9 +22,18 @@ function getTemplate (weatherApp) {
 
     weather.forEach(day => {
         html += dateTemplate.replace(/%%DATE%%/, moment(day.date).format('dddd'));
+        html += `
+<div style="width: 100%">
+    %%HOUR_TEMPLATE_PLACEHOLDER%%
+</div>
+`;
+
+        let nrOfDays = '';
         for ( let i = 0; i < day.values.length; i ++ ) {
-            html += '%%HOUR_TEMPLATE%%';
+            nrOfDays += '<div style="width: 33%; display: inline-block">%%HOUR_TEMPLATE%%</div>';
         }
+        html = html.replace(/%%HOUR_TEMPLATE_PLACEHOLDER%%/, nrOfDays);
+
         day.values.forEach(hour => {
             html = html.replace(/%%HOUR_TEMPLATE%%/,
                 hourTemplate
@@ -33,7 +41,7 @@ function getTemplate (weatherApp) {
                     .replace(/%%TEMP%%/, '' + Math.round(hour.main.temp))
                     .replace(/%%WIND_SPEED%%/, '' + Math.round(hour.wind.speed))
                     .replace(/%%HUMIDITY%%/, '' + Math.round(hour.main.humidity))
-                    .replace(/%%SKY%%/, hour.weather[0].main + ' - ' + hour.weather[0].description)
+                    .replace(/%%SKY%%/, hour.weather.map(w => w.main + ' - ' + w.description).join(', '))
             );
         });
     });
