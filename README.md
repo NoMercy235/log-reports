@@ -63,6 +63,10 @@ Create a `env.js` file in the root directory with the following template:
         keys: {
             googleApiKey: 'string: google api key',
             forecastApiKey: 'string: forecast api key',
+        },
+        options: {
+            limit: 'number: number of days to get the forecast for. Must be within 1 and 5.',
+            type: 'string: one of ["forecast", "weather"]'
         }
     },
 }
