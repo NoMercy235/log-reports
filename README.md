@@ -57,7 +57,7 @@ Create a `env.js` file in the root directory with the following template:
     // Both paths have to already exist
     watchPath: 'string: /path/to/watch/location',
     resultPath: 'string: /path/to/result',
-    clearResult: 'boolean: If true, the resulted file will be cleared',
+    clearResult: 'string: after|before|disabled - cleared the resulted logs at the specified point in time',
     weatherApp: {
         address: 'string: address for which to get the weather',
         keys: {

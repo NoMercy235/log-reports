@@ -33,6 +33,10 @@ watch(env.watchPath, { recursive: true, filter: filter }, (event, name) => {
 });
 
 subject.debounceTime(env.mail.debounceTime).subscribe(() => {
+    if (env.clearResult === 'before') {
+        fileManager.emptyFile(env.resultPath);
+    }
+
     let promises = [];
     changedFiles.forEach(file => promises.push(fileManager.readFile(file, env.resultPath)));
     Promise.all(promises).then(() => {
@@ -40,7 +44,7 @@ subject.debounceTime(env.mail.debounceTime).subscribe(() => {
         weatherApp.getWeatherForAddress(env.weatherApp.address, keys, env.weatherApp.options).then(weatherApp => {
             emailSender({ weatherApp: weatherApp });
             changedFiles = [];
-            if (env.clearResult) {
+            if (env.clearResult === 'after') {
                 fileManager.emptyFile(env.resultPath);
             }
         }).catch(err => console.error(err));

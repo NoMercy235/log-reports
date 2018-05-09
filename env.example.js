@@ -16,5 +16,17 @@ module.exports = {
     // Both paths have to already exist
     watchPath: '/path/to/watch/location',
     resultPath: '/path/to/result',
-    clearResult: 'boolean. If true, the resulted file will be cleared',
+    clearResult: 'string: after|before|disabled - cleared the resulted logs at the specified point in time',
+    // Optionally
+    weatherApp: {
+        address: 'The address you want to received weather forecast for',
+        keys: {
+            googleApiKey: 'your google api key',
+            forecastApiKey: 'your forecast api',
+        },
+        options: {
+            limit: 'number: in case you want to receive a forecast, you can specify the number of days you want it for (1-5)',
+            type: 'string: weather|forecast',
+        }
+    },
 };
