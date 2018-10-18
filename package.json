@@ -23,7 +23,7 @@
     },
     "devDependencies": {
         "hoek": "^4.2.1",
-        "nodemon": "^1.13.2"
+        "nodemon": "^1.18.4"
     },
     "directories": {
         "lib": "lib",
