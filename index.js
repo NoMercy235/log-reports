@@ -32,21 +32,21 @@ watch(env.watchPath, { recursive: true, filter: filter }, (event, name) => {
     }
 });
 
-subject.debounceTime(env.mail.debounceTime).subscribe(() => {
+subject.debounceTime(env.mail.debounceTime).subscribe(async () => {
     if (env.clearResult === 'before') {
         fileManager.emptyFile(env.resultPath);
     }
 
-    let promises = [];
-    changedFiles.forEach(file => promises.push(fileManager.readFile(file, env.resultPath)));
-    Promise.all(promises).then(() => {
-        const keys = env.weatherApp.keys;
-        weatherApp.getWeatherForAddress(env.weatherApp.address, keys, env.weatherApp.options).then(weatherApp => {
-            emailSender({ weatherApp: weatherApp });
-            changedFiles = [];
-            if (env.clearResult === 'after') {
-                fileManager.emptyFile(env.resultPath);
-            }
-        }).catch(err => console.error(err));
-    });
+    for (let file of changedFiles) {
+        await fileManager.readFile(file, env.resultPath);
+    }
+
+    const keys = env.weatherApp.keys;
+    weatherApp.getWeatherForAddress(env.weatherApp.address, keys, env.weatherApp.options).then(weatherApp => {
+        emailSender({ weatherApp: weatherApp });
+        changedFiles = [];
+        if (env.clearResult === 'after') {
+            fileManager.emptyFile(env.resultPath);
+        }
+    }).catch(err => console.error(err));
 });
