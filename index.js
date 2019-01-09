@@ -48,5 +48,8 @@ subject.debounceTime(env.mail.debounceTime).subscribe(async () => {
         if (env.clearResult === 'after') {
             fileManager.emptyFile(env.resultPath);
         }
-    }).catch(err => console.error(err));
+    }).catch(err => {
+      console.error(err);
+      emailSender();
+    });
 });
