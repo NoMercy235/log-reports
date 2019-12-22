@@ -41,15 +41,19 @@ subject.debounceTime(env.mail.debounceTime).subscribe(async () => {
         await fileManager.readFile(file, env.resultPath);
     }
 
-    const keys = env.weatherApp.keys;
-    weatherApp.getWeatherForAddress(env.weatherApp.address, keys, env.weatherApp.options).then(weatherApp => {
-        emailSender({ weatherApp: weatherApp });
-        changedFiles = [];
-        if (env.clearResult === 'after') {
-            fileManager.emptyFile(env.resultPath);
-        }
-    }).catch(err => {
-      console.error(err);
-      emailSender();
-    });
+    if (env.weatherApp) {
+        const keys = env.weatherApp.keys;
+        weatherApp.getWeatherForAddress(env.weatherApp.address, keys, env.weatherApp.options).then(weatherApp => {
+            emailSender({ weatherApp: weatherApp });
+            changedFiles = [];
+            if (env.clearResult === 'after') {
+                fileManager.emptyFile(env.resultPath);
+            }
+        }).catch(err => {
+            console.error(err);
+            emailSender();
+        });
+    } else {
+        emailSender();
+    }
 });
