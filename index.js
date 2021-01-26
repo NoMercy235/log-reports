@@ -46,12 +46,14 @@ subject.debounceTime(env.mail.debounceTime).subscribe(async () => {
         weatherApp.getWeatherForAddress(env.weatherApp.address, keys, env.weatherApp.options).then(weatherApp => {
             emailSender({ weatherApp: weatherApp });
             changedFiles = [];
-            if (env.clearResult === 'after') {
-                fileManager.emptyFile(env.resultPath);
-            }
         }).catch(err => {
             console.error(err);
             emailSender();
+        }).finally(() => {
+            changedFiles = [];
+            if (env.clearResult === 'after') {
+                fileManager.emptyFile(env.resultPath);
+            }
         });
     } else {
         emailSender();
