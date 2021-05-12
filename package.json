@@ -18,7 +18,7 @@
         "@nomercy235/weather-app": "^1.2.4",
         "moment": "^2.21.0",
         "node-watch": "^0.5.5",
-        "nodemailer": "^4.4.1",
+        "nodemailer": "^6.4.16",
         "puppeteer": "^2.0.0",
         "rxjs": "^5.5.5"
     },
