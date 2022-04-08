@@ -16,7 +16,7 @@
     "license": "MIT",
     "dependencies": {
         "@nomercy235/weather-app": "^1.2.4",
-        "moment": "^2.21.0",
+        "moment": "^2.29.2",
         "node-watch": "^0.5.5",
         "nodemailer": "^4.4.1",
         "puppeteer": "^2.0.0",
